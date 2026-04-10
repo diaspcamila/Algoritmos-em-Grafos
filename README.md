@@ -2,6 +2,8 @@
 ## Questões teóricas - readme.md
 ## Questões de implementação - arquivos de código
 
+# TODO - add imgs
+
 ### Questão 1.  
 ###### a) Janssen - Todas; Leuzinger - Português e pelo menos outra língua; Alain - Francês e Alemão; Medeiros - Inglês e Português. Possibilidades: 
 - L falar português e apenas mais 1 língua sendo francês ou alemão / L falar português e 2 línguas sendo elas francês e alemão / L falar português e mais 2 línguas sendo elas inglês e francês OU inglês e alemão / L falar todas as línguas:
