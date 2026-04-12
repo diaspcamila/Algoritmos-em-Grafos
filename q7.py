@@ -1,6 +1,6 @@
 from q5 import Multigrafo, gerar_grafo_aleatorio
 
-def posorder(self):
+def posorder(grafo):
     visitado = set()
     pilha_posordem = []
     pilha_ciclo = set()
@@ -10,7 +10,7 @@ def posorder(self):
         visitado.add(v)
         pilha_ciclo.add(v)
 
-        for aresta in self.iterar_aresta(self.vertices[v].cabeca_arestas):
+        for aresta in grafo.iterar_aresta(grafo.vertices[v].cabeca_arestas):
             if aresta.dest_id not in visitado:
                 dfs(aresta.dest_id)
             elif aresta.dest_id in pilha_ciclo:
@@ -20,7 +20,7 @@ def posorder(self):
         
         pilha_posordem.append(v)
 
-    for v in self.vertices:
+    for v in grafo.vertices:
         if v.is_active and v.vertice_id not in visitado:
             dfs(v.vertice_id)
 
