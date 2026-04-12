@@ -11,8 +11,7 @@ def cintura(grafo):
     pilha_ciclo = set()
     ciclo = [float('inf')]
 
-    if posorder(grafo) is :
-        return float('inf')
+    # bfs p encontrar menor ciclo
     
 
 if __name__ == "__main__":
