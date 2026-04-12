@@ -49,7 +49,6 @@ class Multigrafo:
         if vertice_id >= len(self.vertices) or not self.vertices[vertice_id].is_active:
             return False
 
-        
         for v in self.vertices:
             if v.is_active and v.vertice_id != vertice_id:
                 self.remove_arestas_por_destino(v.vertice_id, vertice_id)
@@ -62,6 +61,43 @@ class Multigrafo:
         if vertice_id < len(self.vertices) and self.vertices[vertice_id].is_active:
             return self.vertices[vertice_id]
         return None
+
+
+    # funcoes de grau do vertice
+
+    def grau_entrada(self, vertice_id):
+        grau_cont = 0
+
+        if not self.buscar_vertice(vertice_id):
+            return -1
+
+        for v in self.vertices:
+            if v.is_active:
+                atual = v.cabeca_arestas
+                while atual:
+                    if atual.dest_id == vertice_id:
+                        grau_cont += 1
+                    atual = atual.next
+        return grau_cont
+
+    def grau_saida(self, vertice_id):
+        grau_cont = 0
+        v = self.buscar_vertice(vertice_id)
+
+        if not v:
+            return -1
+
+        atual = v.cabeca_arestas
+        while atual:
+            grau_cont += 1
+            atual = atual.next
+        return grau_cont
+    
+    def soma_graus(self, vertice_id):
+        if self.grau_saida(vertice_id) == -1:
+            return -1
+        return self.grau_entrada(vertice_id) + self.grau_saida(vertice_id)
+
 
     # funcoes editar arestas
 
@@ -136,6 +172,9 @@ class Multigrafo:
         print(f"\nMultigrafo: {self.name}")
         for v in self.vertices:
             if v.is_active:
+                grau_saida = self.grau_saida(v.vertice_id)
+                grau_entrada = self.grau_entrada(v.vertice_id)
+
                 print(f"Vertice {v.vertice_id}: Custo={v.custo}, atributos={v.atributos}")
                 atual = v.cabeca_arestas
                 if not atual:
@@ -143,15 +182,6 @@ class Multigrafo:
                 while atual:
                     print(f" -> Aponta para V{atual.dest_id} | ID Aresta: {atual.aresta_id} | Custo = {atual.custo} | atributos = {atual.atributos}")
                     atual = atual.next
-
-    def gerar_multigrafo(self, num_vertices, num_arestas):
-        for i in range(num_vertices):
-            self.add_vertice(custo=random.uniform(1.0, 10.0), atributos=f"V{i}")
-
-        for _ in range(num_arestas):
-            origem_id = random.randint(0, num_vertices - 1)
-            dest_id = random.randint(0, num_vertices - 1)
-            self.add_aresta(origem_id, dest_id, custo=random.uniform(1.0, 10.0), atributos=f"A{self.arestas_cont}")
 
     def iterar_aresta(self, cabeca):
         atual = cabeca
@@ -161,33 +191,23 @@ class Multigrafo:
 
 def gerar_grafo_aleatorio(grafo, num_vertices, num_arestas):
         for i in range(num_vertices):
-            grafo.add_vertice(f"V{i}")
+            grafo.add_vertice(custo=random.randint(1, 100), atributos=f"Nome_V{i}")
 
-        vertices = grafo.get_vertices()
+        vertices_ids = [v.vertice_id for v in grafo.vertices if v.is_active]
 
         for _ in range(num_arestas):
-            v1 = random.choice(vertices)
-            v2 = random.choice(vertices)
+            v1 = random.choice(vertices_ids)
+            v2 = random.choice(vertices_ids)
             custo = random.randint(1, 10)
-            grafo.adicionar_aresta(v1, v2, custo)
+            grafo.add_aresta(v1, v2, custo, atributos=f"Aresta_{v1}_para_{v2}")
 
 if __name__ == "__main__":
     g1 = Multigrafo("Grafo 1")
+    gerar_grafo_aleatorio(g1, num_vertices=3, num_arestas=5)
     g2 = Multigrafo("Grafo 2")
-
-    g1.add_vertice(1.0, "A")
-    g1.add_vertice(2.0, "B")
-    g1.add_vertice(3.0, "C")
-    g1.add_vertice(4.0, "D")
-
-    g1.add_aresta(0, 1, 1.5, "A->B")
-    g1.add_aresta(0, 2, 2.5, "A->C")
-    g1.add_aresta(1, 2, 1.0, "B->C")
-    g1.add_aresta(2, 0, 3.0, "C->A")
-    g1.add_aresta(3, 0, 2.0, "D->A")
+    gerar_grafo_aleatorio(g2, num_vertices=5, num_arestas=7)
 
     g1.print_multigrafo()
 
-    gerar_grafo_aleatorio(g2, num_vertices=5, num_arestas=7)
     g2.print_multigrafo()
     

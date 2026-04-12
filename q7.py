@@ -36,7 +36,7 @@ if __name__ == "__main__":
     g1 = Multigrafo("Grafo 1")
     g2 = Multigrafo("Grafo 2")
 
-    g1.add_vertice(1.0, "A") # 0
+    g1.add_vertice(1.0, "A") # 0 indice
     g1.add_vertice(2.0, "B") # 1
     g1.add_vertice(3.0, "C") # 2
     g1.add_vertice(4.0, "D") # 3
@@ -47,4 +47,7 @@ if __name__ == "__main__":
     g1.add_aresta(1, 4, 1.0, "B->E")
     g1.add_aresta(2, 3, 3.0, "C->D")
 
+    gerar_grafo_aleatorio(g2, num_vertices=5, num_arestas=7)
+
     print("Ordenação: ", posorder(g1))
+    print("Ordenação: ", posorder(g2))
