@@ -198,6 +198,11 @@ def gerar_grafo_aleatorio(grafo, num_vertices, num_arestas):
         for _ in range(num_arestas):
             v1 = random.choice(vertices_ids)
             v2 = random.choice(vertices_ids)
+            
+            #evitar self loops
+            while v1 == v2:
+                v2 = random.choice(vertices_ids)
+
             custo = random.randint(1, 10)
             grafo.add_aresta(v1, v2, custo, atributos=f"Aresta_{v1}_para_{v2}")
 

@@ -4,8 +4,6 @@ import itertools
 def isomorfismo(grafo1, grafo2):
     if len(grafo1.vertices) != len(grafo2.vertices):
         return False
-    if len(grafo1.arestas_cont) != len(grafo2.arestas_cont):
-        return False
 
     # verificar graus e estrutura
     graus_g1 = sorted([(grafo1.grau_entrada(v.vertice_id), grafo1.grau_saida(v.vertice_id)) for v in grafo1.vertices if v.is_active])
@@ -54,4 +52,7 @@ if __name__ == "__main__":
     gerar_grafo_aleatorio(g2, 5, 10)
     g2.print_multigrafo()
 
-    print("Os grafos são isomorfos?" , isomorfismo(g1, g2))
+    if isomorfismo(g1, g2):
+        print("Os grafos são isomorfos.")
+    else:
+        print("Os grafos não são isomorfos.")
