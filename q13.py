@@ -1,8 +1,9 @@
 from q5 import Multigrafo, gerar_grafo_aleatorio
 from q12 import excentricidade
+
 #raio - rad(g) é o raio de um vertice central de g
+# um vertice é central se possui o menor raio do grafo
 # o centro é um subconjunto de vertices de excentricidade minima
-# rad(u) - o raio de um vertice é a maior distancia entre u e qualuer outro vertice do grafo
 # diam(g) - é o maior raio dentre os vertice de g
 
 def val(self):
@@ -25,15 +26,15 @@ def val(self):
 
 Multigrafo.val = val
 
-if __name__ == "__init__":
+if __name__ == "__main__":
     g1 = Multigrafo("Grafo 1")
     gerar_grafo_aleatorio(g1, 5, 5)
-    g1.print_multigrafo
+    g1.print_multigrafo()
 
-    ans = g1.val
+    ans = g1.val()
 
-    print(f"Raio: {ans['Raio']}")
-    print(f"Diametro: {ans['Diametro']}")
-    print(f"Centro: {ans['Centro']}")
+    print(f"Raio: {ans["Raio "]}")
+    print(f"Diametro: {ans["Diametro "]}")
+    print(f"Centro: {ans["Centro "]}")
 
     

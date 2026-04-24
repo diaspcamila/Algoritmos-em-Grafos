@@ -4,14 +4,19 @@ from collections import deque
 def excentricidade(self):
     excentricidades = {}
 
+    dist = {v for v in self.vertices if v.is_active}
+    total_ativos = len(dist)
+    
     for vertice_obj in self.vertices:
         inicio = vertice_obj.vertice_id
 
-        dist = {v.vertice_id: -1 for v in self.vertices}
+        dist1 = {v.vertice_id: -1 for v in dist}
         fila = deque([inicio])
-        dist[inicio] = 0
+        dist1[inicio] = 0
 
         maior_dist = 0
+
+        visitados = 1
 
         while fila:
             u = fila.popleft()
@@ -19,12 +24,17 @@ def excentricidade(self):
             for aresta in self.iterar_aresta(self.vertices[u].cabeca_arestas):
                 v = aresta.dest_id
 
-                if dist[v] == -1:
-                    dist[v] = dist[u]+1
-                    maior_dist = max(maior_dist, dist[v])
+                if dist1[v] == -1:
+                    dist1[v] = dist1[u]+1
+                    maior_dist = max(maior_dist, dist1[v])
                     fila.append(v)
+
+                    visitados += 1
                 
-        excentricidades[inicio] = maior_dist
+        if visitados < total_ativos:
+            excentricidades[inicio] = float('inf')
+        else:
+            excentricidades[inicio] = maior_dist
             
     return excentricidades
 Multigrafo.excentricidade = excentricidade
